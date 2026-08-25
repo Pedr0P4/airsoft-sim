@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://b1yi1m2gpqt0b"]
+
+[ext_resource type="Script" uid="uid://boeyfw0r33lsa" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://y8non4fqp7kb" path="res://scenes/arma.tscn" id="2_g2els"]
+[ext_resource type="Script" uid="uid://swy6knvh2iio" path="res://scripts/sway_pivot.gd" id="3_sway"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d78xx"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_d78xx"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1238829798]
+script = ExtResource("1_3vyb7")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=226834097]
+shape = SubResource("CapsuleShape3D_d78xx")
+
+[node name="Head" type="Node3D" parent="." unique_id=1000314839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5444362, 0)
+
+[node name="Vertical" type="Node3D" parent="Head" unique_id=340092804]
+
+[node name="Camera3D" type="Camera3D" parent="Head/Vertical" unique_id=272481920]
+
+[node name="SwayPivot" type="Node3D" parent="Head/Vertical/Camera3D" unique_id=1075236921]
+script = ExtResource("3_sway")
+
+[node name="AimPivot" type="Node3D" parent="Head/Vertical/Camera3D/SwayPivot" unique_id=404077342]
+
+[node name="ArmaModel" parent="Head/Vertical/Camera3D/SwayPivot/AimPivot" unique_id=374323235 instance=ExtResource("2_g2els")]
+transform = Transform3D(0.003214377, 0, -0.9999948, 0, 1, 0, 0.9999948, 0, 0.003214377, 0.40694833, -0.3201865, -1.4506018)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1782222052]
+mesh = SubResource("CapsuleMesh_d78xx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=632150808]
+
+[node name="HUD" type="Control" parent="CanvasLayer" unique_id=1324246879]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HUD" unique_id=1403846404]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
+[node name="HopupLabel" type="Label" parent="CanvasLayer/HUD" unique_id=1734942707]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 60.0
+text = "Hopup: 6000 RPM"
