@@ -1,21 +1,22 @@
 extends CharacterBody3D
 
-@export var speed = 5.0
-@export var jump_force = 4.5
+@export var speed = 5.0;
+@export var jump_force = 4.5;
 @export var sensitivity = 0.2;
 @export var up_limit = 80;
 @export var down_limit = -60;
 
 @export_category("Leaning (Peeking)")
-@export var lean_angle: float = 15.0 ## Inclinação da cabeça em graus
-@export var lean_offset_x: float = 0.4 ## Distância que a cabeça se move para o lado
-@export var lean_speed: float = 8.0
+@export var lean_angle: float = 15.0; ## Inclinação da cabeça em graus
+@export var lean_offset_x: float = 0.4; ## Distância que a cabeça se move para o lado
+@export var lean_speed: float = 8.0;
 
-var _target_lean_angle: float = 0.0
-var _target_lean_offset: float = 0.0
+var _target_lean_angle: float = 0.0;
+var _target_lean_offset: float = 0.0;
 
-@onready var head = $Head
-@onready var vertical = $Head/Vertical
+@onready var head = $Head;
+@onready var vertical = $Head/Vertical;
+@onready var weapon = $Head/Vertical/Camera3D/SwayPivot/AimPivot/ArmaModel;
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);

@@ -21,9 +21,7 @@ func fire(start_transform: Transform3D) -> void:
 	global_transform = start_transform;
 	scale = Vector3.ONE;
 	var speed = sqrt((2.0 * joules) / mass_kg);
-	print("Velocidade calculada da bala: ", speed, " m/s");
 	velocity = -global_transform.basis.z.normalized() * speed;
-	
 	var rad_per_sec = backspin_rpm * (PI / 30.0)
 	spin_vector = global_basis.x.normalized() * rad_per_sec
 

@@ -7,6 +7,7 @@
 [node name="Arma" type="Node3D" unique_id=374323235]
 script = ExtResource("1_rh7jv")
 bullet_scene = ExtResource("2_p6xlu")
+max_ammo = 10
 
 [node name="ArmaModel" parent="." unique_id=1365252309 instance=ExtResource("1_0fmgw")]
 transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0, 0)
