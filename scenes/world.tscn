@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b1yi1m2gpqt0b" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="Texture2D" uid="uid://m826rn5cciud" path="res://icon.svg" id="1_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://b8yr4llpmxgha" path="res://scenes/alvo.tscn" id="3_4wyf3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wyf3"]
 albedo_texture = ExtResource("1_rwgxs")
@@ -31,3 +32,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5594673, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2110075738]
 transform = Transform3D(1, 0, 0, 0, -0.059025813, 0.99825644, 0, -0.99825644, -0.059025813, 0, 28.750185, 0)
+
+[node name="Mira" parent="." unique_id=622894080 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7938614, -33.86617)

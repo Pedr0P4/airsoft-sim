@@ -1,20 +1,23 @@
 [gd_scene format=3 uid="uid://y8non4fqp7kb"]
 
 [ext_resource type="PackedScene" uid="uid://coldur6u5g51h" path="res://models/Arma.glb" id="1_0fmgw"]
-[ext_resource type="Script" uid="uid://bsskyjeoojoje" path="res://scripts/arma.gd" id="1_rh7jv"]
+[ext_resource type="Script" uid="uid://bsskyjeoojoje" path="res://scripts/weapon.gd" id="1_rh7jv"]
+[ext_resource type="Resource" uid="uid://cmwjmf6o15ayj" path="res://resources/rifle.tres" id="2_6ytve"]
 [ext_resource type="PackedScene" uid="uid://due300evxxoj0" path="res://scenes/bullet.tscn" id="2_p6xlu"]
 
 [node name="Arma" type="Node3D" unique_id=374323235]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37091064, 0.08294678)
 script = ExtResource("1_rh7jv")
+weapon_data = ExtResource("2_6ytve")
 bullet_scene = ExtResource("2_p6xlu")
 max_ammo = 10
 
 [node name="ArmaModel" parent="." unique_id=1365252309 instance=ExtResource("1_0fmgw")]
-transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0, 0)
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, -1.3660223, 0.045043945, -0.47856522)
 
 [node name="SaidaBala" type="Marker3D" parent="ArmaModel" unique_id=914173195]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -312.8698, 36.79171, 40.772053)
 gizmo_extents = 1.0
 
 [node name="Arma2" parent="." unique_id=1165012640 instance=ExtResource("1_0fmgw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.96190196, 0.08142048, 0.120779276)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3279243, 0.12646443, -0.35778594)

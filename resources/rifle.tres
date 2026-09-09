@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponResource" format=3 uid="uid://cmwjmf6o15ayj"]
+
+[ext_resource type="Script" uid="uid://bii152ah1c2g2" path="res://scripts/weapon_resource.gd" id="1_tviba"]
+[ext_resource type="PackedScene" uid="uid://y8non4fqp7kb" path="res://scenes/arma.tscn" id="2_tv5j5"]
+
+[resource]
+script = ExtResource("1_tviba")
+name = "Rifle"
+weapon_scene = ExtResource("2_tv5j5")
+metadata/_custom_type_script = "uid://bii152ah1c2g2"

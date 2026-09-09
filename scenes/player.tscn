@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://boeyfw0r33lsa" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://y8non4fqp7kb" path="res://scenes/arma.tscn" id="2_g2els"]
 [ext_resource type="Script" uid="uid://swy6knvh2iio" path="res://scripts/sway_pivot.gd" id="3_sway"]
+[ext_resource type="Script" uid="uid://cq6ocewuerewu" path="res://weapon_manager.gd" id="4_dqkch"]
+[ext_resource type="Resource" uid="uid://cmwjmf6o15ayj" path="res://resources/rifle.tres" id="4_qlg0r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d78xx"]
 
@@ -10,6 +12,7 @@
 
 [node name="Player" type="CharacterBody3D" unique_id=1238829798]
 script = ExtResource("1_3vyb7")
+begin_weapon = ExtResource("4_qlg0r")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=226834097]
 shape = SubResource("CapsuleShape3D_d78xx")
@@ -25,11 +28,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5444362, 0)
 script = ExtResource("3_sway")
 
 [node name="AimPivot" type="Node3D" parent="Head/Vertical/Camera3D/SwayPivot" unique_id=404077342]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.27034545, 0.100000024, 0.274)
 
-[node name="ArmaModel" parent="Head/Vertical/Camera3D/SwayPivot/AimPivot" unique_id=374323235 node_paths=PackedStringArray("hopup_label", "ammo_label") instance=ExtResource("2_g2els")]
-transform = Transform3D(0.003214377, 0, -0.9999948, 0, 1, 0, 0.9999948, 0, 0.003214377, 0.40694833, -0.3201865, -1.4506018)
-hopup_label = NodePath("../../../../../../CanvasLayer/HUD/HopupLabel")
-ammo_label = NodePath("../../../../../../CanvasLayer/HUD/AmmoLabel")
+[node name="Arma" parent="Head/Vertical/Camera3D/SwayPivot/AimPivot" unique_id=374323235 instance=ExtResource("2_g2els")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1782222052]
 mesh = SubResource("CapsuleMesh_d78xx")
@@ -45,6 +46,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/HUD" unique_id=1403846404]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -85,3 +87,6 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 9
 text = "xx/xx"
+
+[node name="WeaponManager" type="Node" parent="." unique_id=2087361458]
+script = ExtResource("4_dqkch")

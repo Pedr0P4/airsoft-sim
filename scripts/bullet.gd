@@ -1,4 +1,7 @@
+class_name Bullet
 extends Area3D
+
+signal bonk_something;
 
 @export_category("Physics Settings")
 @export var joules: float = 1.49;
@@ -16,6 +19,13 @@ var velocity: Vector3 = Vector3.ZERO;
 var gravity_vector_setting: Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_vector", Vector3.DOWN);
 var gravity_value_setting: float = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8);
 var gravity_vector: Vector3 = gravity_vector_setting * gravity_value_setting;
+
+func _ready() -> void:
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body: Node3D) -> void:
+	if body is Mira:
+		hit()
 
 func fire(start_transform: Transform3D) -> void:
 	global_transform = start_transform;
@@ -51,7 +61,26 @@ func _physics_process(delta: float) -> void:
 				var aceleracao_angular = torque_atrito / momento_inercia
 				spin_vector += aceleracao_angular * delta
 	
-	global_position += velocity * delta
+	var next_position = global_position + velocity * delta
+	
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(global_position, next_position)
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+	var result = space_state.intersect_ray(query)
+	
+	if result:
+		global_position = result.position
+		if result.collider is Mira:
+			hit()
+		else:
+			queue_free()
+	else:
+		global_position = next_position
+
+func hit():
+	queue_free();
+	bonk_something.emit();
 
 func _on_life_time_timeout() -> void:
 	queue_free();

@@ -7,7 +7,7 @@ class_name WeaponController
 @export var sway_speed: float = 10.0
 
 @export_category("Aim Down Sights (ADS)")
-@export var aim_position: Vector3 = Vector3(-0.289, 0.088, 0.507)
+@export var aim_position: Vector3 = Vector3(-0.27, 0.1, 0.274)
 @export var aim_speed: float = 12.0
 
 # Referência para o nó filho AimPivot (que guardará a arma)

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b8yr4llpmxgha"]
+
+[ext_resource type="Script" uid="uid://c5dvrqwp52teh" path="res://scripts/alvo.gd" id="1_vgtru"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_d78xx"]
+size = Vector3(1, 1, 0.0859375)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d78xx"]
+size = Vector3(1, 1, 0.083740234)
+
+[node name="Alvo" type="StaticBody3D" unique_id=622894080]
+script = ExtResource("1_vgtru")
+
+[node name="Modelo" type="MeshInstance3D" parent="." unique_id=1348203447]
+mesh = SubResource("BoxMesh_d78xx")
+
+[node name="Colisao" type="CollisionShape3D" parent="." unique_id=578383795]
+shape = SubResource("BoxShape3D_d78xx")

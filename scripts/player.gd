@@ -1,5 +1,9 @@
 extends CharacterBody3D
 
+@export_category("debug")
+@export var begin_weapon: WeaponResource;
+
+@export_category("Player Settings")
 @export var speed = 5.0;
 @export var jump_force = 4.5;
 @export var sensitivity = 0.2;
@@ -7,8 +11,8 @@ extends CharacterBody3D
 @export var down_limit = -60;
 
 @export_category("Leaning (Peeking)")
-@export var lean_angle: float = 15.0; ## Inclinação da cabeça em graus
-@export var lean_offset_x: float = 0.4; ## Distância que a cabeça se move para o lado
+@export var lean_angle: float = 15.0;
+@export var lean_offset_x: float = 0.4;
 @export var lean_speed: float = 8.0;
 
 var _target_lean_angle: float = 0.0;
@@ -16,10 +20,12 @@ var _target_lean_offset: float = 0.0;
 
 @onready var head = $Head;
 @onready var vertical = $Head/Vertical;
-@onready var weapon = $Head/Vertical/Camera3D/SwayPivot/AimPivot/ArmaModel;
+@onready var weapon_manager = $WeaponManager;
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
+	if begin_weapon:
+		weapon_manager.coletar_arma(begin_weapon);
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -60,7 +66,7 @@ func _handle_lean(delta: float) -> void:
 	if Input.is_physical_key_pressed(KEY_Q):
 		_target_lean_angle = lean_angle
 		_target_lean_offset = -lean_offset_x
-	elif Input.is_physical_key_pressed(KEY_E) or Input.is_physical_key_pressed(KEY_R):
+	elif Input.is_physical_key_pressed(KEY_E):
 		_target_lean_angle = -lean_angle
 		_target_lean_offset = lean_offset_x
 	else:
