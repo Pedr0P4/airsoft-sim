@@ -1,10 +1,9 @@
 class_name Weapon
 extends Node3D
 
-@export var weapon_data: WeaponResource;
 @export var bullet_scene: PackedScene;
 @export var max_ammo: int;
-@onready var muzzle: Marker3D = $ArmaModel/SaidaBala;
+@onready var muzzle: Marker3D = $RifleModel/SaidaBala;
 
 var hopup_label: Label;
 var ammo_label: Label;

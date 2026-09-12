@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1yi1m2gpqt0b"]
 
 [ext_resource type="Script" uid="uid://boeyfw0r33lsa" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="PackedScene" uid="uid://y8non4fqp7kb" path="res://scenes/arma.tscn" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://y8non4fqp7kb" path="res://scenes/rifle.tscn" id="2_g2els"]
 [ext_resource type="Script" uid="uid://swy6knvh2iio" path="res://scripts/sway_pivot.gd" id="3_sway"]
 [ext_resource type="Script" uid="uid://cq6ocewuerewu" path="res://weapon_manager.gd" id="4_dqkch"]
 [ext_resource type="Resource" uid="uid://cmwjmf6o15ayj" path="res://resources/rifle.tres" id="4_qlg0r"]
@@ -28,7 +28,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5444362, 0)
 script = ExtResource("3_sway")
 
 [node name="AimPivot" type="Node3D" parent="Head/Vertical/Camera3D/SwayPivot" unique_id=404077342]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.27034545, 0.100000024, 0.274)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="Arma" parent="Head/Vertical/Camera3D/SwayPivot/AimPivot" unique_id=374323235 instance=ExtResource("2_g2els")]
 

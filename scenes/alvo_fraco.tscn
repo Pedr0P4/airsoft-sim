@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://pjrehdved3ql"]
+
+[ext_resource type="PackedScene" uid="uid://ba8fmy61s6fd2" path="res://models/Alvo_fraco.glb" id="1_46nem"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d78xx"]
+size = Vector3(1.4917603, 1.9851074, 0.1796875)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_77rdg"]
+size = Vector3(0.65164185, 0.99557495, 0.17773438)
+
+[node name="AlvoFraco" type="StaticBody3D" unique_id=1286732156]
+
+[node name="Alvo_fraco" parent="." unique_id=544826136 instance=ExtResource("1_46nem")]
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=752100424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043029785, -0.0057373047, 0)
+shape = SubResource("BoxShape3D_d78xx")
+
+[node name="HeadCollision" type="CollisionShape3D" parent="." unique_id=81884252]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00440979, 1.5013733, 0)
+shape = SubResource("BoxShape3D_77rdg")
