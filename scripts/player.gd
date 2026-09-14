@@ -5,6 +5,7 @@ extends CharacterBody3D
 
 @export_category("Player Settings")
 @export var speed = 5.0;
+@export var run_speed = 8.0;
 @export var jump_force = 4.5;
 @export var sensitivity = 0.2;
 @export var up_limit = 80;
@@ -18,14 +19,53 @@ extends CharacterBody3D
 var _target_lean_angle: float = 0.0;
 var _target_lean_offset: float = 0.0;
 
-@onready var head = $Head;
-@onready var vertical = $Head/Vertical;
-@onready var weapon_manager = $WeaponManager;
+@onready var head = $Head
+@onready var vertical = $Head/Vertical
+@onready var weapon_manager = $WeaponManager
+@onready var score_label = $CanvasLayer/HUD/ScoreLabel
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
 	if begin_weapon:
 		weapon_manager.coletar_arma(begin_weapon);
+	
+	if has_node("/root/Global"):
+		var global = get_node("/root/Global")
+		global.score_changed.connect(_on_score_changed)
+		global.points_received.connect(_on_points_received)
+		_on_score_changed(global.score)
+
+func _on_score_changed(new_score: int) -> void:
+	if score_label:
+		score_label.text = "Score: " + str(new_score)
+
+func _on_points_received(points: int) -> void:
+	var hud = $CanvasLayer/HUD
+	if not hud: return
+	
+	var label = Label.new()
+	if points >= 0:
+		label.text = "+" + str(points)
+		label.add_theme_color_override("font_color", Color(1, 1, 0, 1))
+	else:
+		label.text = str(points)
+		label.add_theme_color_override("font_color", Color(1, 0, 0, 1))
+	label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+	label.add_theme_constant_override("outline_size", 4)
+	label.add_theme_font_size_override("font_size", 24)
+	
+	hud.add_child(label)
+	
+	var screen_size = get_viewport().get_visible_rect().size
+	var random_offset_x = randf_range(-50, 50)
+	var random_offset_y = randf_range(-30, 30)
+	label.position = Vector2(screen_size.x / 2.0 + random_offset_x, screen_size.y / 2.0 + random_offset_y)
+	
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(label, "position:y", label.position.y - 100, 1.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(label, "modulate:a", 0.0, 1.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tween.chain().tween_callback(label.queue_free)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -49,15 +89,17 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = jump_force;
+		
+	var current_speed = run_speed if Input.is_action_pressed("run") else speed
 
 	var input_dir := Input.get_vector("left", "right", "up", "down");
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized();
 	if direction:
-		velocity.x = direction.x * speed;
-		velocity.z = direction.z * speed;
+		velocity.x = direction.x * current_speed;
+		velocity.z = direction.z * current_speed;
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed);
-		velocity.z = move_toward(velocity.z, 0, speed);
+		velocity.x = move_toward(velocity.x, 0, current_speed);
+		velocity.z = move_toward(velocity.z, 0, current_speed);
 
 	move_and_slide();
 	_handle_lean(delta)

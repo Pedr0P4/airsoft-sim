@@ -14,6 +14,7 @@ var air_dynamic_viscosity: float = 0.0000181
 
 @export var backspin_rpm: float = 6000;
 var spin_vector: Vector3 = Vector3.ZERO
+var has_hit: bool = false
 
 var velocity: Vector3 = Vector3.ZERO;
 var gravity_vector_setting: Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_vector", Vector3.DOWN);
@@ -21,11 +22,7 @@ var gravity_value_setting: float = ProjectSettings.get_setting("physics/3d/defau
 var gravity_vector: Vector3 = gravity_vector_setting * gravity_value_setting;
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
-
-func _on_body_entered(body: Node3D) -> void:
-	if body is Mira:
-		hit()
+	pass
 
 func fire(start_transform: Transform3D) -> void:
 	global_transform = start_transform;
@@ -36,6 +33,9 @@ func fire(start_transform: Transform3D) -> void:
 	spin_vector = global_basis.x.normalized() * rad_per_sec
 
 func _physics_process(delta: float) -> void:
+	if has_hit:
+		return
+	
 	velocity += gravity_vector * delta;
 	
 	var current_speed_sq = velocity.length_squared();
@@ -65,22 +65,35 @@ func _physics_process(delta: float) -> void:
 	
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(global_position, next_position)
-	query.collide_with_areas = false
+	query.collide_with_areas = true
 	query.collide_with_bodies = true
 	var result = space_state.intersect_ray(query)
 	
 	if result:
+		has_hit = true
 		global_position = result.position
-		if result.collider is Mira:
+		var collider = result.collider
+		if collider is Area3D and collider.get_parent() is Target:
+			var target = collider.get_parent()
+			if collider.name == "HeadArea":
+				target.deal_damage(5)
+			else:
+				target.deal_damage(1)
+			hit()
+		elif collider is Target and collider.has_method("deal_damage"):
+			collider.deal_damage(1)
 			hit()
 		else:
+			if Global.has_method("remove_score"):
+				Global.remove_score(100)
 			queue_free()
 	else:
 		global_position = next_position
 
 func hit():
-	queue_free();
-	bonk_something.emit();
+	set_physics_process(false)
+	queue_free()
+	bonk_something.emit()
 
 func _on_life_time_timeout() -> void:
-	queue_free();
+	queue_free()

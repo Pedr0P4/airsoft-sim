@@ -3,6 +3,7 @@ extends Node
 @onready var weapons_node = $"../Head/Vertical/Camera3D/SwayPivot/AimPivot";
 @onready var hopup_label = $"../CanvasLayer/HUD/HopupLabel";
 @onready var ammo_label = $"../CanvasLayer/HUD/AmmoLabel";
+@onready var firemode_label = $"../CanvasLayer/HUD/FiremodeLabel";
 
 var primary_weapon: Weapon;
 var secondary_weapon: Weapon;
@@ -29,6 +30,8 @@ func coletar_arma(weapon_data: WeaponResource):
 		weapon.ammo_label = ammo_label;
 	if hopup_label:
 		weapon.hopup_label = hopup_label;
+	if firemode_label:
+		weapon.firemode_label = firemode_label;
 	weapons_node.add_child(weapon);
 	if category == WeaponResource.Category.PRIMARY:
 		primary_weapon = weapon;

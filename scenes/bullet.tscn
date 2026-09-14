@@ -3,7 +3,10 @@
 [ext_resource type="Script" uid="uid://bni1g2mk02q4k" path="res://scripts/bullet.gd" id="1_mkf8s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwgxs"]
-albedo_color = Color(1, 0, 0, 1)
+albedo_color = Color(0.2, 1, 0.2, 1)
+emission_enabled = true
+emission = Color(0.2, 1, 0.2, 1)
+emission_energy_multiplier = 5.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_d78xx"]
 material = SubResource("StandardMaterial3D_rwgxs")
@@ -11,13 +14,13 @@ radius = 0.003
 height = 0.006
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_p6xlu"]
-radius = 1.5
+radius = 6.099
 
 [node name="Bullet" type="Area3D" unique_id=1505523943]
 script = ExtResource("1_mkf8s")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1930384822]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 0)
 mesh = SubResource("SphereMesh_d78xx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=935141505]
@@ -25,7 +28,8 @@ transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
 shape = SubResource("SphereShape3D_p6xlu")
 
 [node name="LifeTime" type="Timer" parent="." unique_id=244367887]
-wait_time = 5.0
+wait_time = 10.0
 autostart = true
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="LifeTime" to="." method="_on_life_time_timeout"]
