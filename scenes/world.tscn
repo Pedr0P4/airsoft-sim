@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://m826rn5cciud" path="res://icon.svg" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://pjrehdved3ql" path="res://scenes/alvo_fraco.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://dd8a2p5x3h8x1" path="res://scenes/alvo_forte.tscn" id="4_forte"]
+[ext_resource type="Script" uid="uid://targetmgr00" path="res://scripts/target_manager.gd" id="5_spawner"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wyf3"]
 albedo_texture = ExtResource("1_rwgxs")
@@ -95,41 +96,44 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -95)
 use_collision = true
 size = Vector3(20, 5, 5)
 
-[node name="AlvoFraco" parent="Mapa" unique_id=1286732156 instance=ExtResource("3_4wyf3")]
+[node name="TargetManager" type="Node3D" parent="Mapa"]
+script = ExtResource("5_spawner")
+
+[node name="Spot1" type="Marker3D" parent="Mapa/TargetManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -20)
 
-[node name="AlvoFraco2" parent="Mapa" unique_id=1590328624 instance=ExtResource("3_4wyf3")]
+[node name="Spot2" type="Marker3D" parent="Mapa/TargetManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, -10)
 
-[node name="AlvoFraco3" parent="Mapa" unique_id=1768126957 instance=ExtResource("3_4wyf3")]
+[node name="Spot3" type="Marker3D" parent="Mapa/TargetManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2.5, -20)
 
-[node name="AlvoFraco4" parent="Mapa" unique_id=1287857873 instance=ExtResource("3_4wyf3")]
+[node name="Spot4" type="Marker3D" parent="Mapa/TargetManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, -30)
 
-[node name="AlvoFraco5" parent="Mapa" unique_id=1827955961 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -35)
+[node name="Spot5" type="Marker3D" parent="Mapa/TargetManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.0, -35)
 
-[node name="AlvoForte6" parent="Mapa" unique_id=774441654 instance=ExtResource("4_forte")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 5, -45)
+[node name="Spot6" type="Marker3D" parent="Mapa/TargetManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 5.0, -45)
 
-[node name="AlvoFraco7" parent="Mapa" unique_id=1249692795 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1, -50)
+[node name="Spot7" type="Marker3D" parent="Mapa/TargetManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1.0, -50)
 
-[node name="AlvoFraco8" parent="Mapa" unique_id=1415442692 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, -65)
+[node name="Spot8" type="Marker3D" parent="Mapa/TargetManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.0, -65)
 
-[node name="AlvoFraco9" parent="Mapa" unique_id=1276125901 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3, -75)
+[node name="Spot9" type="Marker3D" parent="Mapa/TargetManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.0, -75)
 
-[node name="AlvoForte10" parent="Mapa" unique_id=1650584603 instance=ExtResource("4_forte")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -95)
+[node name="Spot10" type="Marker3D" parent="Mapa/TargetManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0, -95)
 
-[node name="AlvoFraco11" parent="Mapa" unique_id=1243686807 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, -85)
+[node name="Spot11" type="Marker3D" parent="Mapa/TargetManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1.0, -85)
 
-[node name="AlvoForte12" parent="Mapa" unique_id=2069848301 instance=ExtResource("4_forte")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, -90)
+[node name="Spot12" type="Marker3D" parent="Mapa/TargetManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1.0, -90)
 
 [node name="Player" parent="." unique_id=1238829798 instance=ExtResource("1_nnsk1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5594673, 0)
