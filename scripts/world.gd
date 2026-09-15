@@ -171,7 +171,8 @@ func _spawn_random_magazine() -> void:
 	res.type = type
 	res.capacity = 30 if type == Enums.WeaponType.RIFLE else 15
 	res.current_ammo = res.capacity
-	res.mass_kg = 0.00025
+	var possible_masses = [0.00020, 0.00025, 0.00032]
+	res.mass_kg = possible_masses[randi() % possible_masses.size()]
 	area.magazine_data = res
 	
 	add_child(area)
