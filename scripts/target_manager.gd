@@ -45,7 +45,12 @@ func _on_spawn_timer():
 
 func spawn_target_at(spot: Marker3D):
 	var is_far = spot.global_position.z < -40.0
-	var is_strong = randf() < 0.3 # 30% de chance de ser forte
+	var is_close = spot.global_position.z > -15.0
+	
+	var is_strong = randf() < 0.3 # 30% de chance normal
+	
+	if is_close:
+		is_strong = randf() < 0.9 # 90% de chance de ser forte nas muretas CQB
 	
 	var target_scene = strong_scene if is_strong else weak_scene
 	var target = target_scene.instantiate()

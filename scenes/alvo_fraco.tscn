@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://c5dvrqwp52teh" path="res://scripts/alvo.gd" id="1_431sb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_77rdg"]
-size = Vector3(0.65164185, 0.99557495, 0.17773438)
+size = Vector3(0.75805664, 1.0679779, 0.17773438)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d78xx"]
-size = Vector3(1.4917603, 1.9851074, 0.1796875)
+size = Vector3(1.6142578, 1.9851074, 0.1796875)
 
 [node name="AlvoFraco" type="StaticBody3D" unique_id=1286732156]
 script = ExtResource("1_431sb")
@@ -17,7 +17,7 @@ script = ExtResource("1_431sb")
 [node name="HeadArea" type="Area3D" parent="." unique_id=79304034]
 
 [node name="HeadCollision" type="CollisionShape3D" parent="HeadArea" unique_id=81884252]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00440979, 1.5013733, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00440979, 1.5375748, 0)
 shape = SubResource("BoxShape3D_77rdg")
 
 [node name="BodyArea" type="Area3D" parent="." unique_id=985887846]

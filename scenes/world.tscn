@@ -32,17 +32,17 @@ mesh = SubResource("PlaneMesh_d78xx")
 shape = SubResource("ConcavePolygonShape3D_e5uuo")
 
 [node name="ParedeEsquerda" type="CSGBox3D" parent="Mapa" unique_id=1055897808]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 3, -45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 3, -25)
 use_collision = true
-size = Vector3(1, 6, 110)
+size = Vector3(1, 6, 70)
 
 [node name="ParedeDireita" type="CSGBox3D" parent="Mapa" unique_id=929858745]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 3, -45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 3, -25)
 use_collision = true
-size = Vector3(1, 6, 110)
+size = Vector3(1, 6, 70)
 
 [node name="ParedeFundo" type="CSGBox3D" parent="Mapa" unique_id=280179810]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -100)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -60)
 use_collision = true
 size = Vector3(61, 6, 1)
 
@@ -66,6 +66,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.25, -20)
 use_collision = true
 size = Vector3(4, 2.5, 1)
 
+[node name="MuretaCQB1" type="CSGBox3D" parent="Mapa" unique_id=987654321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.6, -8)
+use_collision = true
+size = Vector3(4, 1.2, 1)
+
+[node name="MuretaCQB2" type="CSGBox3D" parent="Mapa" unique_id=987654322]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.6, -10)
+use_collision = true
+size = Vector3(4, 1.2, 1)
+
 [node name="BarricadaCentral" type="CSGBox3D" parent="Mapa" unique_id=435468350]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -35)
 use_collision = true
@@ -82,17 +92,17 @@ use_collision = true
 size = Vector3(3, 5, 3)
 
 [node name="Plataforma1" type="CSGBox3D" parent="Mapa" unique_id=136388525]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -65)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -55)
 use_collision = true
 size = Vector3(8, 2, 6)
 
 [node name="Plataforma2" type="CSGBox3D" parent="Mapa" unique_id=287245643]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.5, -75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.5, -45)
 use_collision = true
 size = Vector3(12, 3, 8)
 
 [node name="PlataformaFundo" type="CSGBox3D" parent="Mapa" unique_id=1586187215]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -95)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -58)
 use_collision = true
 size = Vector3(20, 5, 5)
 
@@ -121,19 +131,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 5.0, -45)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1.0, -50)
 
 [node name="Spot8" type="Marker3D" parent="Mapa/TargetManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.0, -65)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.0, -55)
 
 [node name="Spot9" type="Marker3D" parent="Mapa/TargetManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.0, -75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.0, -45)
 
 [node name="Spot10" type="Marker3D" parent="Mapa/TargetManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0, -95)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0, -58)
 
 [node name="Spot11" type="Marker3D" parent="Mapa/TargetManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1.0, -85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1.0, -40)
 
 [node name="Spot12" type="Marker3D" parent="Mapa/TargetManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1.0, -90)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1.0, -50)
+
+[node name="Spot13" type="Marker3D" parent="Mapa/TargetManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.0, -8)
+
+[node name="Spot14" type="Marker3D" parent="Mapa/TargetManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.0, -10)
 
 [node name="Player" parent="." unique_id=1238829798 instance=ExtResource("1_nnsk1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5594673, 0)
