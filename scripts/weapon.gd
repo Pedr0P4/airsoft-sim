@@ -2,12 +2,14 @@ class_name Weapon
 extends Node3D
 
 @export var bullet_scene: PackedScene;
-@export var max_ammo: int;
+@export var weapon_type: Enums.WeaponType
+var equipped_magazine: MagazineResource = null
 @export var muzzle_path: NodePath
 @onready var muzzle: Marker3D = get_node_or_null(muzzle_path) as Marker3D
 
 var hopup_label: Label;
 var ammo_label: Label;
+var mass_label: Label;
 var firemode_label: Label;
 
 enum FireMode { SEMI, AUTO }
@@ -35,7 +37,6 @@ var time_since_last_shot: float = 0.0
 
 @export_category("Ballistics")
 @export var joules: float = 1.49
-@export var mass_kg: float = 0.0002
 @export var bullets_per_shot: int = 1
 @export var spread_angle: float = 0.0
 
@@ -43,7 +44,6 @@ var current_hopup_rpm: float = 6000.0;
 var hopup_step: float = 500.0;
 var min_hopup: float = 0.0;
 var max_hopup: float = 20000.0;
-var current_ammo: int = 0;
 
 func _ready() -> void:
 	if muzzle == null:
@@ -54,9 +54,9 @@ func _ready() -> void:
 	if use_scope:
 		_create_scope_hud()
 	
-	current_ammo = max_ammo;
-	update_hopup_label();
+		update_hopup_label();
 	update_ammo_label();
+	update_mass_label();
 	update_fire_interval();
 	update_firemode_label();
 
@@ -105,7 +105,7 @@ func _process(delta: float) -> void:
 							child.show()
 	
 	if current_fire_mode == FireMode.AUTO:
-		if Input.is_action_pressed("shoot") and current_ammo > 0 and time_since_last_shot >= fire_interval:
+		if Input.is_action_pressed("shoot") and time_since_last_shot >= fire_interval:
 			shoot()
 			time_since_last_shot = 0.0
 
@@ -129,13 +129,13 @@ func _input(event: InputEvent) -> void:
 			print("Esta arma não possui modo automático.")
 
 	if current_fire_mode == FireMode.SEMI:
-		if event.is_action_pressed("shoot") and current_ammo > 0 and time_since_last_shot >= fire_interval:
+		if event.is_action_pressed("shoot") and time_since_last_shot >= fire_interval:
 			shoot()
 			time_since_last_shot = 0.0
 
 	if event.is_action_pressed("reload"):
-		current_ammo = max_ammo;
 		update_ammo_label();
+		update_mass_label();
 	elif event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			change_hopup(hopup_step)
@@ -157,10 +157,30 @@ func update_hopup_label() -> void:
 
 func update_ammo_label() -> void:
 	if ammo_label:
-		ammo_label.text = str(current_ammo) + " / " + str(max_ammo);
+		if equipped_magazine:
+			ammo_label.text = str(equipped_magazine.current_ammo) + " / " + str(equipped_magazine.capacity)
+		else:
+			ammo_label.text = "0 / 0"
+
+func update_mass_label() -> void:
+	if mass_label:
+		if equipped_magazine:
+			mass_label.text = "Massa: " + str(equipped_magazine.mass_kg * 1000) + " g"
+		else:
+			mass_label.text = "Massa: --"
+
 
 func shoot() -> void:
-	inc_ammo(-1);
+	if not equipped_magazine:
+		Global.emit_feedback("Sem carregador!")
+		return
+	if equipped_magazine.current_ammo <= 0:
+		Global.emit_feedback("Sem munição!")
+		return
+	
+	equipped_magazine.use_ammo()
+	update_ammo_label()
+	
 	for i in range(bullets_per_shot):
 		var bullet: Bullet = bullet_scene.instantiate();
 		var scene_root = get_tree().current_scene if get_tree().current_scene else get_tree().root
@@ -169,7 +189,7 @@ func shoot() -> void:
 		if "joules" in bullet:
 			bullet.joules = joules
 		if "mass_kg" in bullet:
-			bullet.mass_kg = mass_kg
+			bullet.mass_kg = equipped_magazine.mass_kg
 		if "backspin_rpm" in bullet:
 			bullet.backspin_rpm = current_hopup_rpm
 			
@@ -219,6 +239,5 @@ func _on_bullet_hit() -> void:
 		if is_instance_valid(acerto):
 			acerto.queue_free()
 
-func inc_ammo(amount: int) -> void:
-	current_ammo += amount;
-	update_ammo_label();
+
+	update_mass_label();

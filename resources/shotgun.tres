@@ -8,3 +8,4 @@ script = ExtResource("1_script")
 name = "Shotgun"
 category = 0
 weapon_scene = ExtResource("2_scene")
+weapon_type = 0

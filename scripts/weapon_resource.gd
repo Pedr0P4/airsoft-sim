@@ -9,3 +9,5 @@ enum Category {
 @export var name: String = "Arma Desconhecida";
 @export var category: Category;
 @export var weapon_scene: PackedScene;
+@export var weapon_type: Enums.WeaponType = Enums.WeaponType.RIFLE
+

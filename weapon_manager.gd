@@ -5,6 +5,7 @@ extends Node
 @onready var ammo_label = $"../CanvasLayer/HUD/AmmoLabel"
 @onready var firemode_label = $"../CanvasLayer/HUD/FiremodeLabel"
 
+
 var inventory: Array[Weapon] = [null, null, null, null]
 var active_weapon: Weapon = null
 
@@ -53,6 +54,11 @@ func switch_weapon(index: int) -> void:
 		active_weapon.update_hopup_label()
 	if active_weapon.has_method("update_firemode_label"):
 		active_weapon.update_firemode_label()
+	if active_weapon.has_method("update_mass_label"):
+		active_weapon.update_mass_label()
+		
+	if get_parent().has_method("update_mags_ui"):
+		get_parent().update_mags_ui()
 
 func _equip_weapon_from_resource(index: int, weapon_data: WeaponResource) -> void:
 	if not weapon_data: return
@@ -64,9 +70,22 @@ func _equip_weapon_from_resource(index: int, weapon_data: WeaponResource) -> voi
 		weapon.hopup_label = hopup_label
 	if firemode_label:
 		weapon.firemode_label = firemode_label
+	
+	var possible_mass_label = $"../CanvasLayer/HUD".get_node_or_null("MassLabel")
+	if not possible_mass_label:
+		possible_mass_label = Label.new()
+		possible_mass_label.name = "MassLabel"
+		possible_mass_label.text = "Massa: --"
+		possible_mass_label.add_theme_font_size_override("font_size", 24)
+		$"../CanvasLayer/HUD".add_child(possible_mass_label)
+		possible_mass_label.position = Vector2(20, 150)
+	weapon.mass_label = possible_mass_label
+
+
 		
 	weapons_node.add_child(weapon)
 	weapon.hide()
+	weapon.weapon_type = weapon_data.weapon_type
 	weapon.set_process(false)
 	weapon.set_process_input(false)
 	inventory[index] = weapon

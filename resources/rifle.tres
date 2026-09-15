@@ -8,3 +8,4 @@ script = ExtResource("1_tviba")
 name = "Rifle"
 weapon_scene = ExtResource("2_tv5j5")
 metadata/_custom_type_script = "uid://bii152ah1c2g2"
+weapon_type = 1

@@ -6,8 +6,28 @@ extends Node3D
 var weak_scene = preload("res://scenes/alvo_fraco.tscn")
 var strong_scene = preload("res://scenes/alvo_forte.tscn")
 
+var timer: Timer
 var spots = []
 var active_spots = {}
+var time_elapsed: float = 0.0
+
+func get_current_diff_mult() -> float:
+	var diff_mult = 1.0
+	if Global.current_difficulty == Global.Difficulty.FACIL:
+		diff_mult = 1.5
+	elif Global.current_difficulty == Global.Difficulty.DIFICIL:
+		diff_mult = 0.6
+		
+	# Dificuldade progressiva: a cada 10 segundos o tempo cai em 5%, limite de metade do tempo original
+	var progress = time_elapsed / 10.0
+	var scale_factor = max(0.5, 1.0 - (progress * 0.05))
+	
+	return diff_mult * scale_factor
+
+func _process(delta: float) -> void:
+	time_elapsed += delta
+	if is_instance_valid(timer):
+		timer.wait_time = spawn_interval * get_current_diff_mult()
 
 func _ready():
 	randomize()
@@ -15,14 +35,8 @@ func _ready():
 		if child is Marker3D:
 			spots.append(child)
 			
-	var diff_mult = 1.0
-	if Global.current_difficulty == Global.Difficulty.FACIL:
-		diff_mult = 1.5
-	elif Global.current_difficulty == Global.Difficulty.DIFICIL:
-		diff_mult = 0.6
-			
-	var timer = Timer.new()
-	timer.wait_time = spawn_interval * diff_mult
+	timer = Timer.new()
+	timer.wait_time = spawn_interval * get_current_diff_mult()
 	timer.autostart = true
 	timer.timeout.connect(_on_spawn_timer)
 	add_child(timer)
@@ -75,13 +89,7 @@ func spawn_target_at(spot: Marker3D):
 	else:
 		wait_time = randf_range(6.0, 8.0) if is_far else randf_range(3.0, 5.0)
 		
-	var diff_mult = 1.0
-	if Global.current_difficulty == Global.Difficulty.FACIL:
-		diff_mult = 1.5
-	elif Global.current_difficulty == Global.Difficulty.DIFICIL:
-		diff_mult = 0.6
-		
-	wait_time *= diff_mult
+	wait_time *= get_current_diff_mult()
 		
 	var tween = target.create_tween()
 	# Sobe lentamente
