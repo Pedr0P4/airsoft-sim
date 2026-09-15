@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://pjrehdved3ql" path="res://scenes/alvo_fraco.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://dd8a2p5x3h8x1" path="res://scenes/alvo_forte.tscn" id="4_forte"]
 [ext_resource type="Script" uid="uid://targetmgr00" path="res://scripts/target_manager.gd" id="5_spawner"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="6_world_script"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wyf3"]
 albedo_texture = ExtResource("1_rwgxs")
@@ -18,6 +19,7 @@ material = SubResource("StandardMaterial3D_3vyb7")
 data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
 
 [node name="World" type="Node3D" unique_id=1824240629]
+script = ExtResource("6_world_script")
 
 [node name="Mapa" type="Node3D" parent="." unique_id=302508211]
 

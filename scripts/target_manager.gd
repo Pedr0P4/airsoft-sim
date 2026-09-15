@@ -15,8 +15,14 @@ func _ready():
 		if child is Marker3D:
 			spots.append(child)
 			
+	var diff_mult = 1.0
+	if Global.current_difficulty == Global.Difficulty.FACIL:
+		diff_mult = 1.5
+	elif Global.current_difficulty == Global.Difficulty.DIFICIL:
+		diff_mult = 0.6
+			
 	var timer = Timer.new()
-	timer.wait_time = spawn_interval
+	timer.wait_time = spawn_interval * diff_mult
 	timer.autostart = true
 	timer.timeout.connect(_on_spawn_timer)
 	add_child(timer)
@@ -68,6 +74,14 @@ func spawn_target_at(spot: Marker3D):
 		wait_time = randf_range(8.0, 10.0) if is_far else randf_range(6.0, 8.0)
 	else:
 		wait_time = randf_range(6.0, 8.0) if is_far else randf_range(3.0, 5.0)
+		
+	var diff_mult = 1.0
+	if Global.current_difficulty == Global.Difficulty.FACIL:
+		diff_mult = 1.5
+	elif Global.current_difficulty == Global.Difficulty.DIFICIL:
+		diff_mult = 0.6
+		
+	wait_time *= diff_mult
 		
 	var tween = target.create_tween()
 	# Sobe lentamente

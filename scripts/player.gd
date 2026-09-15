@@ -33,7 +33,33 @@ func _ready() -> void:
 		var global = get_node("/root/Global")
 		global.score_changed.connect(_on_score_changed)
 		global.points_received.connect(_on_points_received)
+		global.time_changed.connect(_on_time_changed)
 		_on_score_changed(global.score)
+		
+		# Create time label dynamically
+		var time_label = Label.new()
+		time_label.name = "TimeLabel"
+		time_label.text = "Tempo: ∞"
+		time_label.add_theme_font_size_override("font_size", 32)
+		time_label.add_theme_color_override("font_color", Color(1, 1, 1))
+		time_label.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+		time_label.add_theme_constant_override("outline_size", 4)
+		$CanvasLayer/HUD.add_child(time_label)
+		time_label.position = Vector2(20, 70) # Below score label
+
+		if Global.current_game_mode == Global.GameMode.TREINO:
+			var back_label = Label.new()
+			back_label.text = "[BACKSPACE] Voltar ao Menu"
+			back_label.add_theme_font_size_override("font_size", 24)
+			back_label.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))
+			back_label.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+			back_label.add_theme_constant_override("outline_size", 4)
+			$CanvasLayer/HUD.add_child(back_label)
+			back_label.position = Vector2(20, 110)
+
+func _on_time_changed(time_left: int) -> void:
+	if $CanvasLayer/HUD.has_node("TimeLabel"):
+		$CanvasLayer/HUD.get_node("TimeLabel").text = "Tempo: " + str(time_left) + "s"
 
 func _on_score_changed(new_score: int) -> void:
 	if score_label:
