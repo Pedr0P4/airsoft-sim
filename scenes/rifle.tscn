@@ -8,8 +8,12 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37091064, 0.08294678)
 script = ExtResource("1_wqliw")
 bullet_scene = ExtResource("2_hbad3")
-max_ammo = 10
-motor_rpm = 10000.0
+max_ammo = 30
+muzzle_path = NodePath("RifleModel/SaidaBala")
+joules = 1.49
+mass_kg = 0.00025
+can_aim = false
+can_auto = true
 
 [node name="RifleModel" parent="." unique_id=1365252309 instance=ExtResource("3_uo1l3")]
 transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, -1.3660223, 0.045043945, -0.47856522)

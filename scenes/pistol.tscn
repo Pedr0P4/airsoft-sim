@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/weapon.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/bullet.tscn" id="2_bullet"]
+[ext_resource type="PackedScene" path="res://models/Pistol.glb" id="3_model"]
+
+[node name="Pistol" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37091064, 0.08294678)
+script = ExtResource("1_script")
+bullet_scene = ExtResource("2_bullet")
+max_ammo = 15
+muzzle_path = NodePath("PistolModel/SaidaBala")
+joules = 1.0
+mass_kg = 0.0002
+can_aim = false
+bullets_per_shot = 1
+spread_angle = 1.0
+
+[node name="PistolModel" parent="." instance=ExtResource("3_model")]
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, -1.3660223, 0.045043945, -0.47856522)
+
+[node name="SaidaBala" type="Marker3D" parent="PistolModel"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -312.8698, 36.79171, 40.772053)
+gizmo_extents = 1.0
